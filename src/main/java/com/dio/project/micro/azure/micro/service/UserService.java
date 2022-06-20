@@ -16,6 +16,10 @@ public class UserService {
 	@Autowired
 	private final UserRepository userRepository;
 	
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+	
 	public Iterable<UserModel> getUsers(){
 		return userRepository.findAll();
 	}

@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dio.project.micro.azure.micro.dto.UserDTO;
 import com.dio.project.micro.azure.micro.model.UserModel;
+import com.dio.project.micro.azure.micro.repository.UserRepository;
 import com.dio.project.micro.azure.micro.service.UserService;
 
 @RestController
@@ -22,6 +24,10 @@ import com.dio.project.micro.azure.micro.service.UserService;
 public class UserController {
 	@Autowired
 	private final UserService userService;
+	
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 	
 	@GetMapping
 	public ResponseEntity<Iterable<UserModel>> getUsers(){
@@ -43,7 +49,7 @@ public class UserController {
 		return ResponseEntity.ok(userService.update(id, userDTO)); 
 	}
 	
-	@GetMapping("/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<UserModel> delete(@PathVariable Long id){
 		return ResponseEntity.ok(userService.delete(id));
 	}
